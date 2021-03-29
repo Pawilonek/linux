@@ -1,0 +1,286 @@
+---
+
+- name: Setup local environment
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: yes
+
+  vars:
+    golang_install_dir: '/opt/go/'
+
+  roles:
+    - role: fonts
+      tags: fonts
+    - role: terminal
+      tags: terminal
+    - role: wp
+      tags: wp
+    - role: wm
+      tags: wm
+    - role: neovim
+      tags: neovim
+    - role: prompt
+      tags: prompt
+    #- role: geerlingguy.nodejs
+    #  become: yes
+    #  tags: nodejs
+      #- role: gantsign.golang
+      # become: yes
+      # Need to add .opt/go/gin to $PATH
+
+  tasks:
+    - name: Ensure apt is up to date
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: yes
+    - name: Ensure some simple tools are installed on on the latest version
+      become: true
+      apt:
+        name:
+          - jq
+        state: latest
+
+
+    # - name: Ensure python is installed
+      # apt:
+        # state: present
+        # name:
+          # - python3
+          # - python3-pip
+
+#    - name: python dep
+#      pip:
+#        state: present
+
+  # i3-gaps
+
+    # - name: Ensure i3-gaps is installed
+      # apt_repository:
+        # repo: ppa:kgilmer/speed-ricer
+        # state: present
+    # - apt:
+        # name:
+         # - i3-gaps-wm
+         # transparency and other useful stuff
+#         - x11-apps
+         # - compton
+         # Status bar
+         # - i3status
+        #         - i3blocks
+        # update_cache: yes
+        # state: present
+
+    # Use path from config
+
+    # - name: Ensures dir exists
+      # file: path=/home/pawilonek/.config/i3 state=directory
+    # - name: Ensures dir exists
+      # file: path=/home/pawilonek/.config/i3/i3status state=directory
+#    - name: Ensures dir exists
+#      file: path=/home/pawilonek/.config/i3/i3blocks state=directory
+
+#    - copy:
+#        src: ./home/i3/i3resize
+#        dest: /home/pawilonek/.config/i3/i3resize
+#        mode: +x
+##    - copy:
+##        src: ./home/i3/i3blocks/config
+##        dest: /home/pawilonek/.config/i3/i3blocks/config
+#    - copy:
+#        src: ./home/i3/i3status/config
+#        dest: /home/pawilonek/.config/i3/i3status/config
+    # - copy:
+        # src: ./home/i3/i3status/myBar.sh
+        # dest: /home/pawilonek/.config/i3/i3status/myBar.sh
+        # mode: +x
+
+# todo: move compton install here
+
+    # - name: Ensure compton is installed
+      # apt:
+        # name:
+         # transparency and other useful stuff
+         # - x11-apps
+         # - compton
+        # update_cache: yes
+        # state: present
+
+    # - name: Ensures dir exist
+      # file:
+        # path: /home/pawilonek/.config/compton
+        # state: directory
+
+    # - name: Copy configuration
+      # copy:
+        # src: ./home/compton/compton.conf
+        # dest: /home/pawilonek/.config/compton/compton.conf
+
+
+    # - copy:
+        # src: ./home/bin/colors
+        # dest: /home/pawilonek/bin/colors
+        # mode: +x
+    # - copy:
+        # src: ./home/bin/open
+        # dest: /home/pawilonek/bin/open
+        # mode: +x
+
+    # Colors configuration for applications
+
+    - name: Copy configuration
+      copy:
+        src: ./home/.dircolors
+        dest: /home/pawilonek/.dircolors
+
+
+    # Disable asking for sudo password
+
+    - name: Ensure asking for sudo password is disable
+      become: true
+      lineinfile:
+        path: /etc/sudoers
+        regexp: "^{{ lookup('env', 'USER') }}"
+        line: "{{ lookup('env', 'USER') }} ALL=(ALL) NOPASSWD: ALL"
+
+
+    # Docker
+
+#    - apt_key:
+#        url: "https://download.docker.com/linux/ubuntu/gpg"
+#        state: present
+#      become: yes
+#    - apt_repository:
+##        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+#        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+#        state: present
+#    - apt:
+#        update_cache: yes
+#        name:
+#          - docker-ce
+#          - docker-ce-cli
+#          - containerd.io
+#        state: present
+#    - name: Update .barhrc
+#      blockinfile:
+#        path: /home/pawilonek/.bashrc
+#        marker: "## {mark} [ansible] Docker config"
+#        block: |
+#          export DOCKER_HOST='tcp://0.0.0.0:2375'
+
+    # https://stackoverflow.com/questions/61110603/how-to-set-up-working-x11-forwarding-on-wsl2
+    # - name: Update .barhrc - X server on windows
+      # blockinfile:
+        # path: /home/pawilonek/.bashrc
+        # marker: "## {mark} [ansible] X server config"
+        # block: |
+          # export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+          # export LIBGL_ALWAYS_INDIRECT=1
+
+    # k8s tools
+
+    # - apt_key:
+        # url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+        # state: present
+      # become: yes
+    # - apt_repository:
+        # repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        # state: present
+    # - apt:
+        # update_cache: yes
+        # name:
+         # - kubectl
+        # state: present
+
+    # - name: Update .barhrc
+      # blockinfile:
+        # path: /home/pawilonek/.bashrc
+        # marker: "## {mark} [ansible] k8s"
+        # block: |
+          # alias k="kubectl"
+
+    # kubectx
+
+    # - name: Get stuff from git
+      # git:
+        # repo: https://github.com/ahmetb/kubectx.git
+        # dest: /opt/kubectx
+    # - name: Create symbolic link
+      # file:
+        # src: /opt/kubectx/kubectx
+        # dest: /usr/local/bin/kubectx
+        # state: link
+    # - name: Create symbolic link
+      # file:
+        # src: /opt/kubectx/kubens
+        # dest: /usr/local/bin/kubens
+        # state: link
+
+      # kubeseal
+      # https://github.com/bitnami-labs/sealed-secrets/releases
+
+
+    # php 7.4
+
+    # - name: Ensure php is installed
+      # apt_repository:
+        # repo: ppa:ondrej/php
+        # state: present
+    # - apt:
+        # name:
+          # - php7.4-fpm
+          # - php7.4-xml
+        # update_cache: yes
+        # state: present
+
+  # Install composer :>
+  # https://getcomposer.org/download/
+
+  # golang
+
+    # - name: Ensure golang is installed
+      # apt_repository:
+        # repo: ppa:longsleep/golang-backports
+        # state: present
+    # - apt:
+        # name:
+         # - golang-go
+        # update_cache: yes
+        # state: present
+
+
+#    - name: Update .barhrc
+#      blockinfile:
+#        path: /var/www/html/index.html
+#        marker: "# [ansible block] "
+#        block: |
+#          <h1>Welcome to {{ ansible_hostname }}</h1>
+#          <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
+
+
+
+
+    # fzf
+
+    # https://github.com/junegunn/fzf#using-git
+    # Ubuntu 19+
+    #- name: Ensure
+    #  apt:
+    #    name:
+    #      - fzf
+    #    state: present
+    # - name: Get stuff from git
+      # git:
+        # repo: https://github.com/junegunn/fzf.git
+        # dest: /opt/fzf
+    # RUN: /opt/fzf/install
+    # - name: Update .barhrc
+      # blockinfile:
+        # path: /home/pawilonek/.bashrc
+        # marker: "## {mark} [ansible] fzf"
+        # Auto generated
+        # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+        # block: |
+          # export PATH=$PATH:/opt/fzf/bin
+          # [[ $- == *i* ]] && source "/opt/fzf/shell/completion.bash" 2> /dev/null/
+

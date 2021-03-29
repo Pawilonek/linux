@@ -1,0 +1,21 @@
+---
+
+# curl -fsSL https://starship.rs/install.sh | bash
+
+- name: Ensures starship configuration direcotry exist
+  file:
+    path: ~/.config
+    state: directory
+
+- name: Copy starship configuration files
+  copy:
+    src: starship.toml
+    dest:  ~/.config/starship.toml
+
+- name: Update .barhrc
+  blockinfile:
+    path: ~/.bashrc
+    marker: "## {mark} [ansible] prompt config"
+    block: |
+        eval "$(starship init bash)"
+

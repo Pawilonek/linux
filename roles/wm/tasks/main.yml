@@ -1,0 +1,45 @@
+---
+
+- name: Ensure i3-gaps apt repository is configued
+  become: true
+  apt_repository:
+    repo: ppa:kgilmer/speed-ricer
+    state: present
+    #validate_certs: no # https://github.com/alacritty/alacritty/issues/2646#issuecomment-564312743
+
+- name: Ensure i3-gaps is installed in the latest version
+  become: true
+  apt:
+    update_cache: yes
+    name:
+     # Not sure if needed
+     #- libssl-dev
+     #- mesa-utils
+     - libgles2-mesa-dev
+     - i3-gaps
+     - x11-apps
+    state: latest
+ 
+- name: Ensures i3 configuration direcotry exist
+  file:
+    path: ~/.config/i3
+    state: directory
+
+- name: Copy i3 configuration files
+  copy:
+    src: config
+    dest:  ~/.config/i3/config
+
+- name: Update .barhrc
+  blockinfile:
+    path: ~/.bashrc
+    marker: "## {mark} [ansible] wm config"
+    block: |
+        export WIN_WLS_VERSION=$(uname -r | grep Microsoft > /dev/null && echo "1" || echo "2")
+        if [ $WIN_WLS_VERSION == "2" ]; then
+            export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+        else
+            export DISPLAY=localhost:0.0
+        fi
+        export LIBGL_ALWAYS_INDIRECT=1
+

@@ -1,0 +1,30 @@
+---
+
+- name: Ensure nvim is installed in the latest version
+  become: true
+  apt:
+    update_cache: yes
+    name:
+     - neovim
+    state: latest
+ 
+- name: Ensures nvim configuration direcotry exist
+  file:
+    path: ~/.config/nvim
+    state: directory
+
+- name: Copy nvim configuration files
+  copy:
+    src: init.vim
+    dest:  ~/.config/nvim/
+  notify: Install nvim plugins
+
+- name: Update .barhrc
+  blockinfile:
+    path: ~/.bashrc
+    marker: "## {mark} [ansible] nvim config"
+    block: |
+        alias vim="nvim"
+        alias vi="nvim"
+        alias v="nvim"
+        export EDITOR=nvim

@@ -1,0 +1,6 @@
+---
+
+- name: Install nvim plugins
+  command: >
+    nvim +PlugInstall +qall
+

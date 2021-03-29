@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo "Change wallpaper"
+    echo "  usage: wp <filename>"
+
+    exit 1
+fi
+
+feh --no-fehbg --bg-fill "$1"

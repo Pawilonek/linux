@@ -1,0 +1,27 @@
+---
+
+- name: Ensure fontconfig is installed in the latest version
+  become: true
+  apt:
+    update_cache: yes
+    name:
+     - fontconfig
+    state: latest
+
+- name: Ensures directory for truetype exists
+  become: true
+  file:
+    path: /usr/share/fonts/truetype/
+    state: directory
+
+# Fonts: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono
+- name: Copy files
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/fonts/truetype/
+    mode: 0644
+  with_fileglob:
+    - "*"
+  notify: Update font cache
+

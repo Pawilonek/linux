@@ -1,0 +1,17 @@
+[time]
+disabled = true
+format = '[$time]($style) '
+time_format = "%T:%S"
+utc_time_offset = "local"
+
+[kubernetes]
+format = '[  $context/$namespace](dimmed green) '
+disabled = true
+
+[kubernetes.context_aliases]
+"dev.local.cluster.k8s" = "dev"
+
+[php]
+format = "via [ﳄ $version](147 bold) "
+disabled = true
+

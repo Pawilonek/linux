@@ -1,0 +1,28 @@
+---
+
+- name: Ensure alacritty apt repository is configued
+  become: true
+  apt_repository:
+    repo: ppa:aslatter/ppa
+    state: present
+    validate_certs: no # https://github.com/alacritty/alacritty/issues/2646#issuecomment-564312743
+
+- name: Ensure alacritty is installed in the latest version
+  become: true
+  apt:
+    update_cache: yes
+    name:
+     - alacritty
+    state: latest
+ 
+- name: Ensures alacritty configuration direcotry exist
+  file:
+    path: ~/.config/alacritty
+    state: directory
+
+- name: Copy alacritty configuration files
+  copy:
+    src: alacritty.yml
+    dest:  ~/.config/alacritty/alacritty.yml
+
+
