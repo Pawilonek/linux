@@ -1,15 +1,17 @@
 
 
-
 ```shell script
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install -y ansible
-sudo apt-get install -y make
+# Update linux 
+sudo apt update
+sudo apt upgrade
+
+# Install starship prompt
+sudo sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+
+# Run ansible magic
+sudo apt install -y ansible
+sudo apt install -y make
 make
-# sudo apt-get install -y python3-pip
-#sudo apt-get install -y python3-apt
-# pip3 install python3-apt
 ```
 
 ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml
