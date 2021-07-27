@@ -1,0 +1,6 @@
+Installing lazygit via go get https://github.com/jesseduffield/lazygit#go
+
+```bash
+go get github.com/jesseduffield/lazygit
+```
+

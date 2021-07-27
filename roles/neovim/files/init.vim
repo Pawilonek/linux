@@ -11,6 +11,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'ryanoasis/vim-devicons'
     " [NERDTRET] Git status for
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Plugin for calling lazygit from within neovim.
+    " https://github.com/kdheepak/lazygit.nvim
+    Plug 'kdheepak/lazygit.nvim'
+
 
     "Plug 'kyazdani42/nvim-web-devicons' " for file icons
     "Plug 'kyazdani42/nvim-tree.lua'
@@ -164,4 +168,7 @@ set hidden
 
 " Hide status line
 set laststatus=0
+
+" Git configuration
+nmap <silent> <C-T> :LazyGit<CR>
 
