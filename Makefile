@@ -14,3 +14,6 @@ neovim:
 prompt:
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "prompt"
 
+wm:
+	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "wm"
+

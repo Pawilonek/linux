@@ -1,0 +1,20 @@
+---
+
+- name: Ensure compton is installed in the latest version
+  become: true
+  apt:
+    update_cache: yes
+    name:
+     - compton
+    state: latest
+ 
+- name: Ensures compton configuration direcotry exist
+  file:
+    path: ~/.config/compton
+    state: directory
+
+- name: Copy compton configuration files
+  copy:
+    src: compton.conf
+    dest:  ~/.config/compton/compton.conf
+

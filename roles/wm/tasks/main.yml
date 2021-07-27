@@ -43,3 +43,6 @@
         fi
         export LIBGL_ALWAYS_INDIRECT=1
 
+# Transparency and stuff
+- include: compton.yml
+

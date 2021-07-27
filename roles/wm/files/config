@@ -94,7 +94,7 @@ gaps outer 15
 # gaps outer current toggle 60
 
 # Transparency
-#exec --no-startup-id "compton"
+exec --no-startup-id "compton"
 
 # function		    bg      	border 		text        indicator
 client.focused 		#ff0000     #81A1C1     #ECEFF4     #cccccc
