@@ -12,4 +12,5 @@
   copy:
     src: wp.png
     dest:  ~/.config/wp.png
+  notify: Update wallpaper
 

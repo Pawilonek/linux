@@ -8,12 +8,15 @@ dep:
 
 
 
-neovim:
+neovim: ## Config: Neovim 
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "neovim"
 
-prompt:
+prompt: ## Config: Terminal prompt
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "prompt"
 
-wm:
+wm: ## Config: Windows Manager
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "wm"
+
+wp: ## Config: Wallpaper
+	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "wp"
 

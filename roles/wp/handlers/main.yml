@@ -1,0 +1,5 @@
+---
+- name: Update wallpaper
+  command: >
+    feh --no-fehbg --bg-fill "~/.config/wp.png"
+
