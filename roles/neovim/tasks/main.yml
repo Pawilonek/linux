@@ -1,5 +1,11 @@
 ---
 
+- name: Ensure nvim stabile repository is present
+  become: true
+  apt_repository:
+    repo: ppa:neovim-ppa/unstable
+    state: present
+
 - name: Ensure nvim is installed in the latest version
   become: true
   apt:
