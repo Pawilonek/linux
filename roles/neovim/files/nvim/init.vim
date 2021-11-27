@@ -4,7 +4,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
     " Tree view directory
     Plug 'preservim/nerdtree'
     " [NERDTREE] More friendly icons
