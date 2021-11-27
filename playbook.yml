@@ -24,6 +24,8 @@
       # todo: sudo npm config set cache $HOME/.cache/npm --global
     - role: golang
       tags: golang
+    - role: git
+      tags: git
 
   tasks:
     - name: Ensure apt is up to date

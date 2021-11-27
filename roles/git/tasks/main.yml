@@ -1,0 +1,8 @@
+---
+
+- name: Install lazygit
+  command: >
+    go get github.com/jesseduffield/lazygit
+  args:
+    creates: $GOPATH/bin/lazygit
+

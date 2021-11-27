@@ -26,4 +26,7 @@ wp: ## Config: Wallpaper
 golang: ## Go
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "golang"
 
+git: ## Git
+	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "git"
+
 

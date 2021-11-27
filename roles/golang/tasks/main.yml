@@ -1,5 +1,12 @@
 ---
 
+- name: Create symbolic link of binary to local bin
+  become: yes
+  file:
+    src: /opt/go/bin/go
+    dest: /usr/local/bin/go
+    state: link
+
 - name: Update .barhrc
   blockinfile:
     path: ~/.bashrc
@@ -7,4 +14,12 @@
     block: |
         export GOPATH=/opt/go
         export PATH=$PATH:$GOPATH/bin
+
+- name: Change owner of the go directory
+  become: yes
+  file:
+    path: /opt/go
+    owner: "{{ ansible_effective_user_id }}"
+    group: "{{ ansible_effective_group_id }}"
+    recurse: yes
 
