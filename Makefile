@@ -23,3 +23,4 @@ wm: ## Config: Windows Manager, i3-gaps
 wp: ## Config: Wallpaper
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "wp"
 
+
