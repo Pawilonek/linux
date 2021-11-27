@@ -1,0 +1,8 @@
+---
+
+- name: Copy coc configuration files
+  copy:
+    src: coc
+    dest:  ~/.config
+  notify: Install coc dependencies
+

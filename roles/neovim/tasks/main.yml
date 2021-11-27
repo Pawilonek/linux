@@ -21,8 +21,8 @@
 
 - name: Copy nvim configuration files
   copy:
-    src: init.vim
-    dest:  ~/.config/nvim/
+    src: nvim
+    dest:  ~/.config
   notify: Install nvim plugins
 
 - name: Update .barhrc
@@ -34,3 +34,7 @@
         alias vi="nvim"
         alias v="nvim"
         export EDITOR=nvim
+
+# Completion for neovim
+- include: coc.yml
+

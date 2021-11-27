@@ -19,11 +19,11 @@
       tags: wm
     - role: neovim
       tags: neovim
-    # - role: prompt
-    # tags: prompt
-    #- role: geerlingguy.nodejs
-    #  become: yes
-    #  tags: nodejs
+        #- role: prompt
+        # tags: prompt
+    - role: geerlingguy.nodejs
+      become: yes
+      tags: nodejs
       #- role: gantsign.golang
       # become: yes
       # Need to add .opt/go/gin to $PATH

@@ -1,2 +1,5 @@
 ---
-dependencies: []
+dependencies:
+  - role: geerlingguy.nodejs
+    become: yes
+

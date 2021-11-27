@@ -23,7 +23,17 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-commentary'
 	" Nord colorscheme
     Plug 'arcticicestudio/nord-vim'
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    
+    " Code autocomplete
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+    " Telescope
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 colorscheme nord
@@ -38,21 +48,23 @@ colorscheme nord
 set updatetime=300
 
 " Use <c-space> to trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Jump to code definition
-"nmap <silent> <C-b> <Plug>(coc-definition)
+nmap <silent> <C-b> <Plug>(coc-definition)
 
 " Symbol renaming.
-"nmap <C-r> <Plug>(coc-rename)
+nmap <C-r> <Plug>(coc-rename)
 
 " Formatting selected code.
 "xmap <A-S-f>  <Plug>(coc-format-selected)
 " Format whole file
 nnoremap <A-S-f> :call CocAction('format')<CR>
+inoremap <A-S-f> :call CocAction('format')<CR>
+
 
 " The editor.action.organizeImport code action will auto-format code and add missing imports. To run this automatically on save, add the following line to your init.vim:
-"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 
 " enable completion with <TAB> 
@@ -152,10 +164,8 @@ map <C-d> :Commentary<CR>
 " TODO
 " Shft + Up / Down
 " Move line up or down
-" nnoremap <leader>k :move-2<CR>
-" nnoremap <S-A-Down> :move+<CR>
-" xnoremap <leader>k :move-2<CR>
-" xnoremap <S-A-Down> :move+<CR>
+nnoremap <S-C-Up> :move-2<cr>
+nnoremap <S-C-Down> :move+<cr>
 
 
 " Make searching a little smarter
@@ -171,4 +181,21 @@ set laststatus=0
 
 " Git configuration
 nmap <silent> <C-T> :LazyGit<CR>
+
+
+" Telescope functions
+nnoremap <A-o> <cmd>lua require('pawilonek').find_file()<cr>
+nnoremap <C-f> <cmd>lua require('pawilonek').find_in_file()<cr>
+
+" Change title of the window to NVIM
+set title
+
+
+
+" Use this option to enable/disable the default mapping of CTRL-],
+" <C-LeftMouse>, g<C-LeftMouse> and (`gd`) for GoDef and CTRL-t for :GoDefPop.
+" Disabling it allows you to map something else to these keys or mappings.
+" Default is enabled. >
+let g:go_def_mapping_enabled = 0
+
 

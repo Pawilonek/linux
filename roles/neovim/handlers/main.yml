@@ -3,4 +3,9 @@
 - name: Install nvim plugins
   command: >
     nvim +PlugInstall +qall
+    nvim +PlugUpdate +qall
+
+- name: Install coc dependencies
+  command: >
+    npm install --prefix ~/.config/coc/extensions --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
