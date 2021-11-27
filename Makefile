@@ -3,8 +3,8 @@ up: dep
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml
 
 dep:
-	ansible-galaxy install geerlingguy.nodejs
-	ansible-galaxy install gantsign.golang
+	ansible-galaxy install --force geerlingguy.nodejs
+	ansible-galaxy install --force gantsign.golang
 
 
 
@@ -22,5 +22,8 @@ wm: ## Config: Windows Manager, i3-gaps
 
 wp: ## Config: Wallpaper
 	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "wp"
+
+golang: ## Go
+	ANSIBLE_CONFIG=./ansible.cfg ansible-playbook playbook.yml --tags "golang"
 
 

@@ -1,0 +1,8 @@
+---
+
+dependencies:
+  - role: gantsign.golang
+    become: yes
+    vars:
+      golang_install_dir: '/opt/go/'
+

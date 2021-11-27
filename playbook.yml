@@ -24,9 +24,8 @@
     - role: geerlingguy.nodejs
       become: yes
       tags: nodejs
-      #- role: gantsign.golang
-      # become: yes
-      # Need to add .opt/go/gin to $PATH
+    - role: golang
+      tags: golang
 
   tasks:
     - name: Ensure apt is up to date

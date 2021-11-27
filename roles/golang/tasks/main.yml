@@ -1,0 +1,10 @@
+---
+
+- name: Update .barhrc
+  blockinfile:
+    path: ~/.bashrc
+    marker: "## {mark} [ansible] golang"
+    block: |
+        export GOPATH=/opt/go
+        export PATH=$PATH:$GOPATH/bin
+
