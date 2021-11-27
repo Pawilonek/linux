@@ -1,5 +1,10 @@
 ---
 
+- name: Copy nord dircolors configuration
+  copy:
+    src: dircolors
+    dest:  ~/.dircolors
+
 - name: Ensure alacritty apt repository is configued
   become: true
   apt_repository:
