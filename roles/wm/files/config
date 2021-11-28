@@ -177,3 +177,9 @@ bindsym $mod+Shift+0	move container to workspace $ws10
 bindsym $mod+Prior 	workspace prev
 bindsym $mod+Next 	workspace next
 
+
+
+# Info about system
+bindsym     $mod+F1     exec alacritty -e bash -c "neofetch && sleep inf"
+
+

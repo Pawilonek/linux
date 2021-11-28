@@ -9,6 +9,7 @@
     "coc-pairs": ">=1.3.0",
     "coc-phpls": ">=2.2.1",
     "coc-prettier": ">=1.1.24",
+    "coc-pyright": ">=1.1.190",
     "coc-tsserver": ">=1.8.6"
   }
 }
